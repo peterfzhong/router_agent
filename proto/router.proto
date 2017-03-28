@@ -1,0 +1,75 @@
+package router;
+
+enum FOO { X = 17; };
+
+message Test {
+required string label = 1;
+optional int32 type = 2 [default=77];
+repeated int64 reps = 3;
+optional group OptionalGroup = 4 {
+required string RequiredField = 5;
+}
+};
+
+message ModuleMachine{
+	required string module_id = 1;
+	required string	ip = 2;
+	required int32	weight = 3;
+	optional string	createUser = 4;
+	optional string createTime = 5;
+};
+
+message ModuleInfo{
+	required string	module_id = 1;
+	optional string	module_name = 2;
+	optional string	module_desc = 3;
+	optional string	create_user = 4;
+	optional string create_time = 5;
+	
+	repeated ModuleMachine machine_list = 6;
+};
+
+message GetRouteRequest{
+	required string module_id = 1;
+};
+
+message GetRouteResponse{
+	required int32  	code = 1; 
+	required string 	ip = 2;
+};
+
+
+message GetModuleRouteListRequest{
+	required string module_id = 1;
+};
+
+message GetModuleRouteListResponse{
+	required int32  	code = 1;
+	required ModuleInfo 	module = 2;
+};
+
+message UpdateRouteRequest{
+	required string module_id = 1;
+	required string ip = 2;
+	required int32  status = 3;
+	required int32  timeout = 4;
+};
+
+message UpdateRouteResponse{
+	required int32  	code = 1;
+	required string 	error = 2;
+};
+
+message ReLoadRouteNotify{
+    required string module_id=1;
+}
+
+message Request{
+	required int32 cmd = 1;
+	optional string	body = 2;
+};
+
+message Response{
+	required int32 code = 1;
+	optional string	response = 2;
+};
